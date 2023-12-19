@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head section -->
+</head>
+<body>
+    <h1>{{ bulk_material.material_type }}</h1>
+    <p>Date Received: {{ bulk_material.date_received }}</p>
+    <p>Picture URL: {{ bulk_material.picture_url }}</p>
+
+    <h2>Material Tracking Records</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Date Tracked</th>
+                <th>Quantity</th>
+                <th>Responsible Person</th>
+                <th>Picture Detection</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in tracking_records %}
+                <tr>
+                    <td>{{ record.date_tracked }}</td>
+                    <td>{{ record.quantity }}</td>
+                    <td>{{ record.responsible_person }}</td>
+                    <td><img src="/{{ record.picture_detection_url }}" class="image"></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Perform New Material Tracking</h3>
+    <a href="{{ url_for('views.material_tracking_detection', bulk_id=bulk_material.id) }}">Perform Material Tracking</a>
+</body>
+</html>

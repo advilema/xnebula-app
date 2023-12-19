@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ construction_site.site_name }}</title>
+</head>
+<body>
+    <h1>{{ construction_site.site_name }}</h1>
+    <p>Location: {{ construction_site.location }}</p>
+    <p>Manager: {{ construction_site.manager }}</p>
+    <p>Surface: {{ construction_site.surface }}</p>
+    <h2>Bulk Materials</h2>
+    <ul>
+        {% for bulk_material in bulk_materials %}
+            <li><a href="{{ url_for('views.bulk_material', bulk_id=bulk_material.id) }}">{{ bulk_material.material_type }}</a></li>
+        {% endfor %}
+    </ul>
+    <h3>Add Bulk Material</h3>
+    <a href="{{ url_for('views.add_bulk_material', site_id=construction_site.id) }}">Add Bulk Material</a>
+</body>
+</html>
