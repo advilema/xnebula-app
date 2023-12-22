@@ -1,3 +1,4 @@
 .idea
 weights
 static/images
+__pycache__
