@@ -14,8 +14,10 @@
 <body>
     <h1>Add Bulk Material</h1>
     <form method="POST" action="" enctype="multipart/form-data">
-        <label for="material_type">Material Type:</label>
-        <input type="text" name="material_type" required><br>
+        {{ form.hidden_tag() }}
+        <!--{{ form.material_type.label }} {{ form.material_type(size=32) }}-->
+        {{ form.material_type.label }}
+        {{ form.material_type(class="form-control") }}
 
         <div id="map"></div> <!-- Map container -->
 

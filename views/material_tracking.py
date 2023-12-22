@@ -2,7 +2,7 @@ from datetime import datetime
 
 import os
 
-from . import views_bp, MaterialTracking, db, UPLOAD_FOLDER, BulkMaterial
+from . import views_bp, MaterialTracking, db, Config, BulkMaterial
 from flask import render_template, redirect, url_for, request
 from werkzeug.utils import secure_filename
 from detection.yolov8 import YOLOCount
@@ -20,7 +20,7 @@ def material_tracking_detection(bulk_id):
         # Save the uploaded picture to the "uploads" directory
         if picture:
             filename = secure_filename(date_tracked_str + '.jpg')
-            picture_dir = os.path.join(os.path.join(UPLOAD_FOLDER, str(site_id)), str(bulk_id))
+            picture_dir = os.path.join(os.path.join(Config.UPLOAD_FOLDER, str(site_id)), str(bulk_id))
             if not os.path.isdir(picture_dir):
                 os.mkdir(picture_dir)
             picture_url = os.path.join(picture_dir, filename)

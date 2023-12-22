@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, request
 from werkzeug.utils import secure_filename
 import os
 
-from . import views_bp, ConstructionSite, db, UPLOAD_FOLDER
+from . import views_bp, ConstructionSite, db, Config
 
 
 @views_bp.route('/add_construction_site', methods=['GET', 'POST'])
@@ -17,7 +17,7 @@ def add_construction_site():
 
         if site_map:
             filename = secure_filename('site-map' + '.jpg')
-            map_dir = os.path.join(UPLOAD_FOLDER, str(site_id))
+            map_dir = os.path.join(Config.UPLOAD_FOLDER, str(site_id))
             if not os.path.isdir(map_dir):
                 os.mkdir(map_dir)
             map_url = os.path.join(map_dir, filename)

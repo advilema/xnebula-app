@@ -1,9 +1,10 @@
 from flask import Flask
 from views import views_bp
 from models.models import db
+from config import Config
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config.from_object(Config)
 db.init_app(app)
 
 app.register_blueprint(views_bp)
