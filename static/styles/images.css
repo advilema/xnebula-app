@@ -1,0 +1,9 @@
+.small-image {
+    width: 200px;
+    height: auto; /* Maintain aspect ratio */
+}
+
+.normal-image {
+    width: 350px;
+    height: auto; /* Maintain aspect ratio */
+}

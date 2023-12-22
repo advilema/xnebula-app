@@ -2,12 +2,31 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/images.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/map.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 </head>
 <body>
     <h1>{{ bulk_material.material_type }}</h1>
     <p>Date Received: {{ bulk_material.date_received }}</p>
     <p>Quantity: {{ tracking_records[-1].quantity }}</p>
     <img src="/{{ tracking_records[-1].picture_url }}" class="normal-image">
+
+    <div id="map" class="map"></div> <!-- Map container -->
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var constructionSiteMapFile = '{{ url_for("static", filename="images/" + bulk_material.site_id|string + "/site-map.jpg") }}';
+
+        var bulksData = [
+            { latitude: {{ bulk_material.latitude}}, longitude: {{ bulk_material.longitude}}, popupContent: "{{ bulk_material.material_type}}" },
+        ];
+
+        // Call the function from the included maps.js file
+        createInteractiveMap('map', constructionSiteMapFile, bulksData);
+    });
+    </script>
 
     <h2>Material Tracking Records</h2>
     <table border="1">

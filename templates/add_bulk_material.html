@@ -5,17 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Bulk Material</title>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 500px; }
+    </style>
 </head>
 <body>
     <h1>Add Bulk Material</h1>
-    <form method="POST" action="">
+    <form method="POST" action="" enctype="multipart/form-data">
         <label for="material_type">Material Type:</label>
         <input type="text" name="material_type" required><br>
-        <label for="date_received">Date Received:</label>
-        <input type="date" name="date_received" required><br>
-        <label for="picture_url">Picture URL:</label>
-        <input type="text" name="picture_url"><br>
+
+        <div id="map"></div> <!-- Map container -->
+
+        <input type="hidden" id="latitude" name="latitude" value="">
+        <input type="hidden" id="longitude" name="longitude" value="">
         <button type="submit">Add Bulk Material</button>
     </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var map = L.map('map').setView([0, 0], 2);
+
+            var constructionSiteMapFile = '{{ url_for("static", filename="images/" + site_id|string + "/site-map.jpg") }}';
+
+            L.imageOverlay(constructionSiteMapFile, [[-90, -180], [90, 180]]).addTo(map);
+
+            var marker = L.marker([0, 0], { draggable: true}).addTo(map);
+
+            // Update marker position on map click
+            map.on('click', function (event) {
+                var position = event.latlng;
+                marker.setLatLng(position);
+                document.getElementById('latitude').value = position.lat;
+                document.getElementById('longitude').value = position.lng;
+            });
+
+            // Update marker position on marker drag
+            marker.on('dragend', function () {
+                var position = marker.getLatLng();
+                document.getElementById('latitude').value = position.lat;
+                document.getElementById('longitude').value = position.lng;
+            });
+        });
+    </script>
 </body>
 </html>

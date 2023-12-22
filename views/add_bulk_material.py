@@ -10,8 +10,11 @@ def add_bulk_material(site_id):
     if request.method == 'POST':
         material_type = request.form['material_type']
         date_received = datetime.now()
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
 
-        new_bulk_material = BulkMaterial(site_id=site_id, material_type=material_type, date_received=date_received)
+        new_bulk_material = BulkMaterial(site_id=site_id, material_type=material_type, date_received=date_received,
+                                         latitude=latitude, longitude=longitude)
         db.session.add(new_bulk_material)
         db.session.commit()
 

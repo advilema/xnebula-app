@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/map.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
     <title>{{ construction_site.site_name }}</title>
 </head>
 <body>
@@ -12,6 +16,24 @@
     <p>Manager: {{ construction_site.manager }}</p>
     <p>Surface: {{ construction_site.surface }}</p>
     <h2>Bulk Materials</h2>
+
+    <div id="map" class="map"></div> <!-- Map container -->
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var constructionSiteMapFile = '{{ url_for("static", filename="images/" + construction_site.id|string + "/site-map.jpg") }}';
+
+        var bulksData = [
+            {% for bulk_material in bulk_materials %}
+                { latitude: {{ bulk_material.latitude }}, longitude: {{ bulk_material.longitude }}, popupContent: "{{ bulk_material.material_type }}" },
+            {% endfor %}
+        ];
+
+        // Call the function from the included maps.js file
+        createInteractiveMap('map', constructionSiteMapFile, bulksData);
+    });
+    </script>
+
     <ul>
         {% for bulk_material in bulk_materials %}
             <li><a href="{{ url_for('views.bulk_material', bulk_id=bulk_material.id) }}">{{ bulk_material.material_type }}</a></li>
