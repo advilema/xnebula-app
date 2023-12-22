@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Head section -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/images.css') }}">
 </head>
 <body>
     <h1>{{ bulk_material.material_type }}</h1>
     <p>Date Received: {{ bulk_material.date_received }}</p>
-    <p>Picture URL: {{ bulk_material.picture_url }}</p>
+    <p>Quantity: {{ tracking_records[-1].quantity }}</p>
+    <img src="/{{ tracking_records[-1].picture_url }}" class="normal-image">
 
     <h2>Material Tracking Records</h2>
     <table border="1">
@@ -24,7 +25,7 @@
                     <td>{{ record.date_tracked }}</td>
                     <td>{{ record.quantity }}</td>
                     <td>{{ record.responsible_person }}</td>
-                    <td><img src="/{{ record.picture_detection_url }}" class="image"></td>
+                    <td><img src="/{{ record.picture_detection_url }}" class="small-image"></td>
                 </tr>
             {% endfor %}
         </tbody>

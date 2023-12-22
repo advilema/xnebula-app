@@ -14,7 +14,6 @@ class BulkMaterial(db.Model):
     site_id = db.Column(db.Integer, db.ForeignKey('construction_site.id'), nullable=False)
     material_type = db.Column(db.String(255), nullable=False)
     date_received = db.Column(db.Date, nullable=False)
-    picture_url = db.Column(db.String(255))
 
 class MaterialTracking(db.Model):
     id = db.Column(db.Integer, primary_key=True)

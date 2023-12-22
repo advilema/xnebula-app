@@ -9,14 +9,12 @@ from . import views_bp, BulkMaterial, db
 def add_bulk_material(site_id):
     if request.method == 'POST':
         material_type = request.form['material_type']
-        date_received_str = request.form['date_received']
-        date_received = datetime.strptime(date_received_str, '%Y-%m-%d').date()
-        picture_url = request.form['picture_url']
+        date_received = datetime.now()
 
-        new_bulk_material = BulkMaterial(site_id=site_id, material_type=material_type, date_received=date_received, picture_url=picture_url)
+        new_bulk_material = BulkMaterial(site_id=site_id, material_type=material_type, date_received=date_received)
         db.session.add(new_bulk_material)
         db.session.commit()
 
-        return redirect(url_for('views.construction_site', site_id=site_id))
+        return redirect(url_for('views.material_tracking_detection', bulk_id=new_bulk_material.id))
 
     return render_template('add_bulk_material.html', site_id=site_id)
