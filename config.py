@@ -3,7 +3,7 @@ import os
 
 class Config:
     SECRET_KEY = 'ciao'
-    DEBUG = True
+    DEBUG = False
 
     # Database Configurations
     SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
