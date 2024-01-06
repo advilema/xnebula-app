@@ -8,6 +8,8 @@
     <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 </head>
 <body>
+    <a href="{{ url_for('views.index') }}">Home</a> >
+    <a href="{{ url_for('views.construction_site', site_id=construction_site.id) }}">{{ construction_site.site_name }}</a> <br>
     <h1>{{ bulk_material.material_type }}</h1>
     <p>Date Received: {{ bulk_material.date_received }}</p>
     <p>Quantity: {{ tracking_records[-1].quantity }}</p>

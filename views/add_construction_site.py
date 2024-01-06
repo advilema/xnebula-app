@@ -11,7 +11,6 @@ def add_construction_site():
         site_name = request.form['site_name']
         location = request.form['location']
         manager = request.form['manager']
-        surface = request.form['surface']
         site_map = request.files['site_map']
         site_id = ConstructionSite.query.count() + 1
 
@@ -26,7 +25,7 @@ def add_construction_site():
             map_url = None
 
         new_construction_site = ConstructionSite(id=site_id, site_name=site_name, location=location, manager=manager,
-                                                 surface=surface, map_url=map_url)
+                                                 map_url=map_url)
         db.session.add(new_construction_site)
         db.session.commit()
 

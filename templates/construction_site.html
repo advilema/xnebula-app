@@ -11,9 +11,17 @@
     <title>{{ construction_site.site_name }}</title>
 </head>
 <body>
+    <a href="{{ url_for('views.index') }}">Home</a> <br>
     <h1>{{ construction_site.site_name }}</h1>
     <p>Location: {{ construction_site.location }}</p>
     <p>Manager: {{ construction_site.manager }}</p>
+
+    <h2>Quantities per Material Type</h2>
+    <ul>
+        {% for material_type_quantity in material_types_quantities %}
+            <li>{{material_type_quantity[0]}}: {{material_type_quantity[1]}}</li>
+        {% endfor %}
+    </ul>
 
     <h2>Bulk Materials</h2>
 
@@ -25,7 +33,7 @@
 
         var bulksData = [
             {% for bulk_material in bulk_materials %}
-                { latitude: {{ bulk_material.latitude }}, longitude: {{ bulk_material.longitude }}, popupContent: "{{ bulk_material.material_type }}" },
+                { latitude: {{ bulk_material.latitude }}, longitude: {{ bulk_material.longitude }}, popupContent: "{{ bulk_material.material_type }} - {{ bulk_material.id }}" },
             {% endfor %}
         ];
 
@@ -36,7 +44,7 @@
 
     <ul>
         {% for bulk_material in bulk_materials %}
-            <li><a href="{{ url_for('views.bulk_material', bulk_id=bulk_material.id) }}">{{ bulk_material.material_type }}</a></li>
+            <li><a href="{{ url_for('views.bulk_material', bulk_id=bulk_material.id) }}">{{ bulk_material.material_type }} - {{ bulk_material.id }}</a></li>
         {% endfor %}
     </ul>
     <h3>Add Bulk Material</h3>

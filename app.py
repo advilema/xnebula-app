@@ -1,7 +1,9 @@
 from flask import Flask
-from views import views_bp
-from models.models import db
+from socket import gethostname
+
 from config import Config
+from models.models import db
+from views import views_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -13,4 +15,5 @@ app.register_blueprint(views_bp)
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    if 'liveconsole' not in gethostname():
+        app.run()
