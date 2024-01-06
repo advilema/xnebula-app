@@ -15,13 +15,23 @@ def delete_file(file_path):
         print(f"An error occurred: {e}")
 
 
-def reset():
-    print("Deleting the database")
-    delete_file(PATH_DATABASE)
-    print("Done!")
+def delete_folder(folder_path):
+    try:
+        shutil.rmtree(folder_path)
+    except FileNotFoundError:
+        print(f"Folder {folder_path} not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
-    print("Deleting all the images")
-    shutil.rmtree(PATH_IMAGES)
+
+def reset():
+    print("Deleting the database...")
+    delete_file(PATH_DATABASE)
+    print("Done! \n")
+
+    print("Deleting all the images...")
+    delete_folder(PATH_IMAGES)
+    print("Done! \n")
 
     # Recreate the empty directory
     os.mkdir(PATH_IMAGES)
