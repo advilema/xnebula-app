@@ -2,12 +2,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
 class ConstructionSite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     site_name = db.Column(db.String(255), unique=True, nullable=False)
     location = db.Column(db.String(255), nullable=False)
     manager = db.Column(db.String(255), nullable=False)
+    surface = db.Column(db.Float)
     map_url = db.Column(db.String(255))
 
 
