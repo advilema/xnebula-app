@@ -15,5 +15,5 @@ app.register_blueprint(views_bp)
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    if 'liveconsole' not in gethostname():
-        app.run()
+    #if 'liveconsole' not in gethostname():
+    app.run()
