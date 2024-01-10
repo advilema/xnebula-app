@@ -15,7 +15,6 @@ class Config:
 
     # Bulk Material Categories
     BULK_MATERIAL_CATEGORIES = [
-        'Base Standard UVB 24',
-        'Top Standards UVH',
-        'Ledgers UH Plus'
+        'Vertikalstiel',
+        'Anfagsstiel',
     ]
